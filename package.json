@@ -11,11 +11,13 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/pwa": "^2.6.0",
     "cross-env": "^5.2.0",
+    "inha-info": "^0.2.0",
+    "inha-timetable": "file:../inha_timetable",
     "nuxt": "^2.4.0",
     "vuetify": "^1.5.5",
-    "vuetify-loader": "^1.2.1",
-    "@nuxtjs/pwa": "^2.6.0"
+    "vuetify-loader": "^1.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",

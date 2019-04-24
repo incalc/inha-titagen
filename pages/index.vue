@@ -1,26 +1,19 @@
 <template>
   <v-container fluid>
     <v-layout row pb-2>
-      <v-flex xs10 offset-xs1>
-        <AwesomeCourseTable class="card__course-table" :courses="courses"/>
+      <v-flex sm10 offset-sm1 xs12>
+        <awesome-course-list class="card__course-table"/>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import AwesomeCourseTable from '@/components/AwesomeCourseTable'
-
-import availableCourses from '@/static/available-courses'
+import AwesomeCourseList from '@/components/AwesomeCourseList'
 
 export default {
   components: {
-    AwesomeCourseTable
-  },
-  data() {
-    return {
-      courses: availableCourses
-    }
+    AwesomeCourseList
   }
 }
 </script>

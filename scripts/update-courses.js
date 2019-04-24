@@ -1,67 +1,69 @@
-const { department } = require('inha-info');
 const fs = require('fs');
-const inhaTT = require('inha-timetable');
 const path = require('path');
+const utils = require('../lib/utils');
 
-const AVAILABLE_COURSES_FILE = path.join(__dirname, '../static/available-courses.json');
-const COURSES_FILE = path.join(__dirname, '../static/courses.json');
-const RESTRICTED_COURSES_FILE = path.join(__dirname, '../static/restricted-courses.json');
-
-const depts = department.getAll();
-const deptICECode = inhaTT.getDeptCode('정보통신공학과');
-
-Promise.all([
-  ...Object.values(inhaTT.getAll()).map(deptCode => inhaTT.getTimeTable(deptCode, '필수')),
-  inhaTT.getTimeTable(deptICECode, '영어'),
-  inhaTT.getTimeTable(deptICECode, '핵심교양'),
-  inhaTT.getTimeTable(deptICECode, '일반교양'),
-]).then((categoryCourses) => {
-  fs.writeFileSync(
-    AVAILABLE_COURSES_FILE,
-    JSON.stringify(categoryCourses
-      .flat()
-      .reduce((accumulator, course, index) => {
-        const courseId = course.id;
-        const duplicateCourse = accumulator.find(element => element.id === courseId);
-        if (duplicateCourse) {
-          duplicateCourse.departments.push(course.deptName);
-        } else {
-          course.departments = [course.deptName];
-          delete course.dept;
-          delete course.deptName;
-          accumulator.push(course);
+(async () => {
+  const availableCourses = await utils.getAvailableCourses();
+  const listedCourses = await utils.getListedCourses();
+  const restrictedCourses = await utils.getRestrictedCourses();
+  const courses = {};
+  for (let i = 0, len = availableCourses.length; i < len; i += 1) {
+    const availableCourse = availableCourses[i];
+    const [courseId, classId] = availableCourse.id.split('-');
+    if (courseId in courses) {
+      const course = courses[courseId];
+      const courseClass = course.classes.find(courseClass => courseClass.id === classId);
+      if (courseClass) {
+        const { departments } = courseClass;
+        if (!departments.includes('전체') && !departments.includes(availableCourse.deptName)) {
+          if (availableCourse.deptName === '전체') {
+            courseClass.departments = ['전체'];
+          } else {
+            departments.push(availableCourse.deptName);
+            departments.sort();
+          }
         }
-        return accumulator;
-      }, [])
-      .map((course) => {
-        if (course.departments.includes('전체')) {
-          course.departments = ['전체']
-        } else {
-          course.departments.sort();
-        }
-        course.professors = course.professor
-          .split(',')
-          .map(professor => professor.trim());
-        delete course.professor;
-        return course;
-      })
-      .sort((a, b) => a.id.localeCompare(b.id)),
-      null, 4),
-  );
-});
-
-Promise.all(depts.map(department.getCourses)).then(deptCourses => fs.writeFileSync(
-  COURSES_FILE,
-  JSON.stringify(deptCourses.reduce((accumulator, courses, index) => {
-    accumulator[depts[index].name] = courses;
-    return accumulator;
-  }, {}), null, 4),
-));
-
-Promise.all(depts.map(department.getRestrictedCourses)).then(deptCourses => fs.writeFileSync(
-  RESTRICTED_COURSES_FILE,
-  JSON.stringify(deptCourses.reduce((accumulator, courses, index) => {
-    accumulator[depts[index].name] = courses;
-    return accumulator;
-  }, {}), null, 4),
-));
+      } else {
+        course.classes.push({
+          id: classId,
+          professors: availableCourse.professor
+            .split(',')
+            .map(professor => professor.trim()),
+          time: availableCourse.time,
+          classroom: availableCourse.classroom,
+          rate: availableCourse.rate,
+          note: availableCourse.note,
+          departments: [availableCourse.deptName],
+        });
+      }
+    } else {
+      courses[courseId] = {
+        id: courseId,
+        name: availableCourse.name,
+        grade: availableCourse.grade,
+        credit: availableCourse.credit,
+        category: availableCourse.category,
+        classes: [{
+          id: classId,
+          professors: availableCourse.professor
+            .split(',')
+            .map(professor => professor.trim()),
+          time: availableCourse.time,
+          classroom: availableCourse.classroom,
+          rate: availableCourse.rate,
+          note: availableCourse.note,
+          departments: [availableCourse.deptName],
+        }],
+        listed: (() => {
+          const matchCourse = listedCourses.find(listedCourse => listedCourse.id === courseId);
+          return matchCourse ? matchCourse.department : [];
+        })(),
+        restricted: (() => {
+          const matchCourse = restrictedCourses.find(restrictedCourse => restrictedCourse.id === courseId);
+          return matchCourse ? matchCourse.department : [];
+        })(),
+      };
+    }
+  }
+  fs.writeFileSync(path.join(__dirname, '../static/courses.json'), JSON.stringify(Object.values(courses), null, 4));
+})();

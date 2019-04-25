@@ -40,9 +40,9 @@ const utils = require('../lib/utils');
       courses[courseId] = {
         id: courseId,
         name: availableCourse.name,
-        grade: availableCourse.grade,
-        credit: availableCourse.credit,
         category: availableCourse.category,
+        credit: availableCourse.credit,
+        grade: availableCourse.grade,
         classes: [{
           id: classId,
           professors: availableCourse.professor
@@ -54,14 +54,12 @@ const utils = require('../lib/utils');
           note: availableCourse.note,
           departments: [availableCourse.deptName],
         }],
-        listed: (() => {
-          const matchCourse = listedCourses.find(listedCourse => listedCourse.id === courseId);
-          return matchCourse ? matchCourse.department : [];
-        })(),
-        restricted: (() => {
-          const matchCourse = restrictedCourses.find(restrictedCourse => restrictedCourse.id === courseId);
-          return matchCourse ? matchCourse.department : [];
-        })(),
+        listed: listedCourses
+          .filter(listedCourse => listedCourse.id === courseId)
+          .map(listedCourse => listedCourse.department),
+        restricted: restrictedCourses
+          .filter(restrictedCourse => restrictedCourse.id === courseId)
+          .map(restrictedCourse => restrictedCourse.department),
       };
     }
   }

@@ -54,8 +54,8 @@
             </tr>
           </template>
           <template v-slot:expand="propsNested">
-            <v-layout justify-space-between py-2>
-              <v-flex xs6>
+            <v-layout row wrap>
+              <v-flex sm6 xs12 py-2>
                 <v-list class="transparent">
                   <awesome-list-tile
                     v-for="(professor, index) in propsNested.item.professors"
@@ -73,7 +73,9 @@
                   />
                 </v-list>
               </v-flex>
-              <v-flex d-flex>TimeTable</v-flex>
+              <v-flex sm6 xs12 px-3 py-2>
+                <awesome-timetable class="transparent" :schedule="propsNested.item.time"/>
+              </v-flex>
             </v-layout>
           </template>
         </v-data-table>
@@ -86,6 +88,7 @@
 import AwesomeLabel from '@/components/AwesomeLabel'
 import AwesomeListTile from '@/components/AwesomeListTile'
 import AwesomeSearchBox from '@/components/AwesomeSearchBox'
+import AwesomeTimetable from '@/components/AwesomeTimetable'
 
 import courses from '@/static/courses'
 
@@ -94,7 +97,8 @@ export default {
   components: {
     AwesomeLabel,
     AwesomeListTile,
-    AwesomeSearchBox
+    AwesomeSearchBox,
+    AwesomeTimetable
   },
   data() {
     return {
@@ -121,10 +125,10 @@ export default {
     }
   },
   methods: {
-    customSearchFilter(items, searches, filter) {
-      if (searches) {
+    customSearchFilter(items, search, filter) {
+      if (search) {
         return items.filter(item => {
-          const { course, grade, professor } = searches
+          const { course, grade, professor } = search
           const validCourse = course
             ? item.id.includes(course) || item.name.includes(course)
             : true
@@ -139,10 +143,10 @@ export default {
       }
       return items
     },
-    customSearchFilterNested(items, searches, filter) {
-      if (searches) {
+    customSearchFilterNested(items, search, filter) {
+      if (search) {
         return items.filter(item => {
-          const { professor } = searches
+          const { professor } = search
           return professor ? item.professors.includes(professor) : true
         })
       }

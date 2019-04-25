@@ -1,9 +1,9 @@
 <template>
-  <v-chip label outline :color="color" small>{{ content }}</v-chip>
+  <v-chip :color="color" label outline small>{{ content }}</v-chip>
 </template>
 
 <script>
-import colors from '@/static/department-colors'
+import colors from '@/static/colors'
 
 export default {
   name: 'AwesomeLabel',

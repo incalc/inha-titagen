@@ -10,11 +10,7 @@
 </template>
 
 <script>
-const iconNames = {
-  professor: 'school',
-  rate: 'assessment',
-  time: 'schedule'
-}
+import icons from '@/static/icons'
 
 export default {
   name: 'AwesomeListTile',
@@ -31,7 +27,7 @@ export default {
   computed: {
     iconName() {
       const { icon } = this
-      return icon in iconNames ? iconNames[icon] : icon
+      return icon in icons ? icons[icon] : icon
     }
   }
 }

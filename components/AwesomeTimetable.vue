@@ -2,16 +2,17 @@
   <section class="table">
     <div class="times">
       <div class="time"></div>
-      <div v-for="i in 26" :key="i" class="time">{{ i }}교시</div>
+      <div v-for="i in 15" :key="i" class="time">{{ i + 8 }}시</div>
     </div>
     <div v-for="dayName in dayNames" :key="dayName" class="cols">
-      <div class="day">{{ dayName }}</div>
       <div
         v-for="time in scheduleByDay[dayName]"
         :key="time"
         class="cell secondary"
-        :style="{ marginTop : (time.match(/\d+/)[0] - 1) * 16 + 'px'}"
+        :style="{ top : 16 + (time.match(/\d+/)[0] - 1) * 8 + 'px'}"
       ></div>
+      <div class="day">{{ dayName }}</div>
+      <div v-for="i in 15" :key="i" class="time"></div>
     </div>
   </section>
 </template>
@@ -76,7 +77,6 @@ export default {
 .cell {
   position: absolute;
   width: 100%;
-  height: 16px;
+  height: 8px;
 }
 </style>
-

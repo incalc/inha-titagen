@@ -3,18 +3,24 @@
     <v-card-title>
       Courses
       <v-spacer/>
+      <v-btn icon @click="openUserDialog">
+        <v-icon>account_balance</v-icon>
+      </v-btn>
+      <v-btn icon @click="timetableVisible = !timetableVisible">
+        <v-icon>table_chart</v-icon>
+      </v-btn>
       <v-btn icon @click="searchBoxVisible = !searchBoxVisible">
         <v-icon>search</v-icon>
       </v-btn>
     </v-card-title>
     <v-slide-y-transition>
-      <awesome-search-box v-show="searchBoxVisible" ref="searchBox"/>
+      <awesome-search-box v-show="searchBoxVisible" @update="updateSearchData"/>
     </v-slide-y-transition>
     <v-data-table
       :headers="headers"
       :items="courses"
       :rows-per-page-items="pageItems"
-      :search="search()"
+      :search="search"
       expand
       :custom-filter="customSearchFilter"
     >
@@ -35,7 +41,7 @@
           class="grey lighten-3 pl-1"
           :headers="headersNested"
           :items="props.item.classes"
-          :search="search()"
+          :search="search"
           expand
           hide-actions
           :custom-filter="customSearchFilterNested"
@@ -81,6 +87,7 @@
         </v-data-table>
       </template>
     </v-data-table>
+    <awesome-user-dialog ref="userDialog" @result="updateUserData"/>
   </v-card>
 </template>
 
@@ -89,7 +96,14 @@ import AwesomeLabel from '@/components/AwesomeLabel'
 import AwesomeListTile from '@/components/AwesomeListTile'
 import AwesomeSearchBox from '@/components/AwesomeSearchBox'
 import AwesomeTimetable from '@/components/AwesomeTimetable'
-
+import AwesomeUserDialog from '@/components/AwesomeUserDialog'
+import {
+  checkCourse,
+  checkDepartment,
+  checkGrade,
+  checkProfessor
+} from '@/lib/checker'
+import { dataTable } from '@/static/components'
 import courses from '@/static/courses'
 
 export default {
@@ -98,47 +112,37 @@ export default {
     AwesomeLabel,
     AwesomeListTile,
     AwesomeSearchBox,
-    AwesomeTimetable
+    AwesomeTimetable,
+    AwesomeUserDialog
   },
   data() {
     return {
       courses,
+      search: null,
+      user: { department: null },
       searchBoxVisible: false,
-      headers: [
-        { text: 'Course ID', value: 'id', width: '10%' },
-        { text: 'Name', value: 'name', width: '40%' },
-        { text: 'Category', value: 'category', width: '20%' },
-        { text: 'Credit', value: 'credit', width: '15%' },
-        { text: 'Grade', value: 'grade', width: '15%' }
-      ],
-      headersNested: [
-        { text: 'Course ID', value: 'id', width: '10%' },
-        { text: 'Professors', value: 'professors', width: '40%' },
-        { text: 'Departments', value: 'departments', width: '50%' }
-      ],
-      pageItems: [
-        25,
-        50,
-        100,
-        { text: '$vuetify.dataIterator.rowsPerPageAll', value: -1 }
-      ]
+      timetableVisible: false,
+      ...dataTable
     }
+  },
+  mounted() {
+    this.openUserDialog()
   },
   methods: {
     customSearchFilter(items, search, filter) {
       if (search) {
         return items.filter(item => {
-          const { course, grade, professor } = search
-          const validCourse = course
-            ? item.id.includes(course) || item.name.includes(course)
-            : true
-          const validGrade = grade
-            ? item.grade === '전체' || item.grade === grade[0]
-            : true
-          const validProfessor = professor
-            ? item.classes.some(clazz => clazz.professors.includes(professor))
-            : true
-          return validCourse && validGrade && validProfessor
+          const { course, department, grade, professor } = search
+          return (
+            checkCourse(item, course) &&
+            item.classes.some(clazz =>
+              checkDepartment(clazz.departments, department)
+            ) &&
+            checkGrade(item.grade, grade) &&
+            item.classes.some(clazz =>
+              checkProfessor(clazz.professors, professor)
+            )
+          )
         })
       }
       return items
@@ -146,8 +150,11 @@ export default {
     customSearchFilterNested(items, search, filter) {
       if (search) {
         return items.filter(item => {
-          const { professor } = search
-          return professor ? item.professors.includes(professor) : true
+          const { department, professor } = search
+          return (
+            checkDepartment(item.departments, department) &&
+            checkProfessor(item.professors, professor)
+          )
         })
       }
       return items
@@ -160,35 +167,27 @@ export default {
       return formatNames
     },
     isRequired(course) {
-      const department = this.$refs.searchBox.searchDepartment
+      const { user } = this
       return (
-        department &&
+        user.department &&
         course.category.includes('필수') &&
-        (course.listed.some(listedDepartment =>
-          listedDepartment.includes(department.replace(/과$/, ''))
-        ) ||
-          course.listed.includes('전체'))
+        checkDepartment(course.listed, user.department)
       )
     },
     isRistricted(course) {
-      const department = this.$refs.searchBox.searchDepartment
+      const { user } = this
       return (
-        department &&
-        course.restricted.some(restrictedDepartment =>
-          restrictedDepartment.includes(department.replace(/과$/, ''))
-        )
+        user.department && checkDepartment(course.restricted, user.department)
       )
     },
-    search() {
-      const searchBox = this.$refs.searchBox
-      if (searchBox) {
-        return {
-          course: searchBox.searchCourse,
-          grade: searchBox.searchGrade,
-          professor: searchBox.searchProfessor
-        }
-      }
-      return null
+    openUserDialog() {
+      this.$refs.userDialog.open()
+    },
+    updateSearchData(search) {
+      this.search = search
+    },
+    updateUserData(user) {
+      this.user = user
     }
   }
 }

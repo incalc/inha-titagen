@@ -1,0 +1,57 @@
+{
+    "dataTable": {
+        "headers": [
+            {
+                "text": "Course ID",
+                "value": "id",
+                "width": "10%"
+            },
+            {
+                "text": "Name",
+                "value": "name",
+                "width": "40%"
+            },
+            {
+                "text": "Category",
+                "value": "category",
+                "width": "20%"
+            },
+            {
+                "text": "Credit",
+                "value": "credit",
+                "width": "15%"
+            },
+            {
+                "text": "Grade",
+                "value": "grade",
+                "width": "15%"
+            }
+        ],
+        "headersNested": [
+            {
+                "text": "Course ID",
+                "value": "id",
+                "width": "10%"
+            },
+            {
+                "text": "Professors",
+                "value": "professors",
+                "width": "40%"
+            },
+            {
+                "text": "Departments",
+                "value": "departments",
+                "width": "50%"
+            }
+        ],
+        "pageItems": [
+            25,
+            50,
+            100,
+            {
+                "text": "$vuetify.dataIterator.rowsPerPageAll",
+                "value": -1
+            }
+        ]
+    }
+}

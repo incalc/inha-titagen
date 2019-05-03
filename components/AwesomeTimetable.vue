@@ -4,15 +4,15 @@
       <div class="time"></div>
       <div v-for="i in 15" :key="i" class="time">{{ i + 8 }}시</div>
     </div>
-    <div v-for="dayName in dayNames" :key="dayName" class="cols">
-      <div
-        v-for="time in scheduleByDay[dayName]"
-        :key="time"
-        class="cell secondary"
-        :style="{ top : 16 + (time.match(/\d+/)[0] - 1) * 8 + 'px'}"
-      ></div>
+    <div v-for="dayName in dayNames" :key="dayName" class="days">
       <div class="day">{{ dayName }}</div>
       <div v-for="i in 15" :key="i" class="time"></div>
+      <div
+        v-for="course in coursesByDay[dayName]"
+        :key="course"
+        class="course primary"
+        :style="{ top : `${16 + (course.timeCaculated.start - 1) * 8}px`, height: `${(course.timeCaculated.end - course.timeCaculated.start + 1) * 8}px`}"
+      >{{ course.name }}</div>
     </div>
   </section>
 </template>
@@ -21,9 +21,10 @@
 export default {
   name: 'AwesomeTimetable',
   props: {
-    schedule: {
-      type: String,
-      required: true
+    courseClasses: {
+      type: Array,
+      default: []
+      // required: true
     }
   },
   data() {
@@ -32,11 +33,25 @@ export default {
     }
   },
   computed: {
-    scheduleByDay() {
-      const { dayNames } = this
-      const schedule = this.schedule.split(',')
+    coursesByDay() {
+      const { dayNames, courseClasses } = this
       return dayNames
-        .map(dayName => schedule.filter(time => time[0] === dayName))
+        .map(dayName =>
+          courseClasses
+            .filter(courseClass => courseClass.time.includes(dayName))
+            .map(courseClass => {
+              const ts = courseClass.time
+                .split(',')
+                .filter(t => t.includes(dayName))
+              return {
+                ...courseClass,
+                timeCaculated: {
+                  start: Number(ts[0].match(/\d+/)[0]),
+                  end: Number(ts[ts.length - 1].match(/\d+/)[0])
+                }
+              }
+            })
+        )
         .reduce((acc, cur, idx) => {
           acc[dayNames[idx]] = cur
           return acc
@@ -50,10 +65,11 @@ export default {
 .table {
   display: flex;
   text-align: center;
+  border-collapse: collapse;
 }
 
 .times,
-.cols {
+.days {
   position: relative;
   flex: 1;
   border: #eee 1px solid;
@@ -71,12 +87,15 @@ export default {
 .time:last-child {
   height: 15px;
   border: none;
-  box-sizing: border-box;
 }
 
-.cell {
+.course {
+  display: flex;
   position: absolute;
   width: 100%;
-  height: 8px;
+  color: white;
+  font-size: 6px;
+  align-items: center;
+  justify-content: center;
 }
 </style>

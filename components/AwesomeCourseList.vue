@@ -16,6 +16,9 @@
     <v-slide-y-transition>
       <awesome-search-box v-show="searchBoxVisible" @update="updateSearchData"/>
     </v-slide-y-transition>
+    <v-slide-y-transition>
+      <awesome-timetable v-show="timetableVisible" :schedule="user.courses"/>
+    </v-slide-y-transition>
     <v-data-table
       :headers="headers"
       :items="courses"
@@ -80,7 +83,10 @@
                 </v-list>
               </v-flex>
               <v-flex sm6 xs12 px-3 py-2>
-                <awesome-timetable class="transparent" :schedule="propsNested.item.time"/>
+                <awesome-timetable
+                  class="transparent"
+                  :courseClasses="[createCourseClass(props.item, propsNested.item)]"
+                />
               </v-flex>
             </v-layout>
           </template>
@@ -119,7 +125,10 @@ export default {
     return {
       courses,
       search: null,
-      user: { department: null },
+      user: {
+        courses: [],
+        department: null
+      },
       searchBoxVisible: false,
       timetableVisible: false,
       ...dataTable
@@ -129,6 +138,13 @@ export default {
     this.openUserDialog()
   },
   methods: {
+    createCourseClass(course, clazz) {
+      return {
+        ...course,
+        ...clazz,
+        id: `${course.id}-${clazz.id}`
+      }
+    },
     customSearchFilter(items, search, filter) {
       if (search) {
         return items.filter(item => {

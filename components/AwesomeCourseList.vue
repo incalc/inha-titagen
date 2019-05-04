@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Courses
+      <span class="headline">Courses</span>
       <v-spacer/>
       <v-btn icon @click="openUserDialog">
         <v-icon>account_balance</v-icon>
@@ -17,8 +17,9 @@
       <awesome-search-box v-show="searchBoxVisible" @update="updateSearchData"/>
     </v-slide-y-transition>
     <v-slide-y-transition>
-      <awesome-timetable v-show="timetableVisible" :schedule="user.courses"/>
+      <awesome-timetable v-show="timetableVisible" class="ma-3" :courses="user.courses"/>
     </v-slide-y-transition>
+    <v-divider/>
     <v-data-table
       :headers="headers"
       :items="courses"
@@ -41,17 +42,28 @@
       </template>
       <template v-slot:expand="props">
         <v-data-table
+          v-model="user.courses"
           class="grey lighten-3 pl-1"
           :headers="headersNested"
           :items="props.item.classes"
           :search="search"
+          disable-initial-sort
           expand
           hide-actions
+          select-all
           :custom-filter="customSearchFilterNested"
         >
           <template v-slot:items="propsNested">
             <tr @click="propsNested.expanded = !propsNested.expanded">
-              <td>{{ propsNested.item.id }}</td>
+              <td>
+                <v-checkbox
+                  v-model="propsNested.selected"
+                  class="custom"
+                  color="primary"
+                  hide-details
+                  :label="propsNested.item.id.split('-')[1]"
+                />
+              </td>
               <td>{{ formatNames(propsNested.item.professors) }}</td>
               <td>
                 <awesome-label
@@ -83,12 +95,10 @@
                 </v-list>
               </v-flex>
               <v-flex sm6 xs12 px-3 py-2>
-                <awesome-timetable
-                  class="transparent"
-                  :courseClasses="[createCourseClass(props.item, propsNested.item)]"
-                />
+                <awesome-timetable class="transparent" :courses="[propsNested.item]"/>
               </v-flex>
             </v-layout>
+            <v-divider/>
           </template>
         </v-data-table>
       </template>
@@ -134,17 +144,28 @@ export default {
       ...dataTable
     }
   },
+  beforeCreate() {
+    courses.forEach(course => {
+      course.classes.forEach(clazz => {
+        const props = [
+          'name',
+          'category',
+          'credit',
+          'grade',
+          'listed',
+          'restricted'
+        ]
+        clazz.id = `${course.id}-${clazz.id}`
+        props.forEach(prop => {
+          clazz[prop] = course[prop]
+        })
+      })
+    })
+  },
   mounted() {
     this.openUserDialog()
   },
   methods: {
-    createCourseClass(course, clazz) {
-      return {
-        ...course,
-        ...clazz,
-        id: `${course.id}-${clazz.id}`
-      }
-    },
     customSearchFilter(items, search, filter) {
       if (search) {
         return items.filter(item => {
@@ -216,5 +237,10 @@ tbody table thead tr {
 
 tbody table tr {
   background-color: #f8f8f8;
+}
+
+.custom.v-input--checkbox .v-label {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 13px;
 }
 </style>

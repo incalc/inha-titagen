@@ -29,11 +29,6 @@
         ],
         "headersNested": [
             {
-                "text": "Course ID",
-                "value": "id",
-                "width": "10%"
-            },
-            {
                 "text": "Professors",
                 "value": "professors",
                 "width": "40%"

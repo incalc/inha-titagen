@@ -5,9 +5,7 @@
       <div v-for="i in 15" :key="i" class="time">{{ i + 8 }}시</div>
     </div>
     <div v-for="dayName in dayNames" :key="dayName" class="days">
-      <div class="day">{{ dayName }}</div>
-      <div v-for="i in 15" :key="i" class="time"></div>
-      <v-tooltip v-for="course in coursesByDay[dayName]" :key="course" bottom>
+      <v-tooltip v-for="course in coursesByDay[dayName]" :key="course.id" bottom>
         <template v-slot:activator="{ on }">
           <div
             class="course primary"
@@ -25,6 +23,8 @@
           {{ course.classroom }}
         </p>
       </v-tooltip>
+      <div class="day">{{ dayName }}</div>
+      <div v-for="i in 15" :key="i" class="time"></div>
     </div>
   </section>
 </template>

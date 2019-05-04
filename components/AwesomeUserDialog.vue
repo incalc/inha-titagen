@@ -48,7 +48,7 @@ export default {
     updateResult() {
       const { selectedDepartment } = this
       if (selectedDepartment) {
-        this.$emit('result', { department: selectedDepartment })
+        this.$emit('result', { courses: [], department: selectedDepartment })
         this.close()
       } else {
       }

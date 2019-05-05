@@ -1,30 +1,44 @@
 {
   "name": "inha-timetable-generator",
   "version": "1.0.0",
-  "description": "My good Nuxt.js project",
-  "author": "Seungjae Park",
-  "private": true,
+  "description": "Inha Univ. Timetable Generator",
+  "keywords": [
+    "inha-university",
+    "timetable",
+    "generator"
+  ],
+  "dependencies": {
+    "@nuxtjs/pwa": "^3.0.0-beta.14",
+    "cross-env": "^5.2.0",
+    "inha-info": "^0.2.0",
+    "inha-timetable": "git+https://github.com/Agrajak/inha_timetable.git",
+    "nuxt": "^2.6.3",
+    "vuetify": "^1.5.14",
+    "vuetify-loader": "^1.2.2"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "nodemon": "^1.19.0",
+    "prettier": "^1.17.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
-  "dependencies": {
-    "@nuxtjs/pwa": "^2.6.0",
-    "cross-env": "^5.2.0",
-    "inha-info": "^0.2.0",
-    "inha-timetable": "file:../inha_timetable",
-    "nuxt": "^2.4.0",
-    "vuetify": "^1.5.5",
-    "vuetify-loader": "^1.2.1"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Astro36/inha-timetable-generator.git"
   },
-  "devDependencies": {
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-prettier": "^3.0.1",
-    "nodemon": "^1.18.11",
-    "prettier": "^1.17.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2"
-  }
+  "author": "Seungjae Park <astro.psj@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Astro36/inha-timetable-generator/issues"
+  },
+  "homepage": "https://github.com/Astro36/inha-timetable-generator#readme",
+  "private": true
 }

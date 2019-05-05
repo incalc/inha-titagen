@@ -13,7 +13,7 @@
       d="M206.5 139h-22.1v9.3h-8.5v12.9h-26.2V139h-9.8v2.5c0 12.7-11.9 19.4-23.6 19.4h-1.2v-13.8h.7c5.6 0 9.8-2.9 9.8-6.8V139H99l-6.7 63.4 60.5 25.8 60.5-25.8z"
     ></path>
     <path
-      :fill="textColor"
+      :fill="backgroundColor"
       d="M124.3 180.7v1.7h4.2v14.5h2.2V177H129c-.3 3.1-1.9 3.7-4.7 3.7zM142 177c-3 0-5.3 2.7-5.3 6.9 0 7.1 7 7.6 8.8 3.7h.1c-.1 2.1-.1 7.7-3.5 7.7-1.8 0-2.6-1-2.6-2.8h-2.3c.1 2.9 1.7 4.8 4.7 4.8 5.7 0 5.8-6.9 5.8-11.1s-.4-9.2-5.7-9.2zm.1 11c-2.5 0-3.1-2.4-3.1-4.4s.6-4.6 3.1-4.6 3.2 2.8 3.2 4.9-.7 4.1-3.2 4.1zm13.3-2.7l.8-5.9h6.7v-2h-8.4l-1.2 10.2h2a2.7 2.7 0 0 1 2.7-1.8c2.8 0 3.3 2.4 3.3 4.7s-.8 4.8-3.1 4.8-3.1-1.5-3-3.6H153c-.2 3.5 1.7 5.6 5.2 5.6s5.4-3.6 5.4-7.1c0-6.6-5.5-7.7-8.2-4.9zm20.7 4.6V177h-2l-7.4 12.9v2h7.2v5h2.2v-5h1.8v-2zm-2.2 0h-5.4l5.4-9.4z"
     ></path>
   </svg>
@@ -21,11 +21,15 @@
 
 <script>
 export default {
-  name: 'InhaLogo',
+  name: 'InhaUnivLogo',
   props: {
     size: {
       type: String,
       default: '80px'
+    },
+    backgroundColor: {
+      type: String,
+      default: 'white'
     },
     strokeColor: {
       type: String,
@@ -38,10 +42,6 @@ export default {
     seaColor: {
       type: String,
       default: '#005bac'
-    },
-    textColor: {
-      type: String,
-      default: 'white'
     }
   }
 }

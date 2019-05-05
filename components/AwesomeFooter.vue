@@ -2,7 +2,7 @@
   <v-footer dark height="auto">
     <v-card class="flex" flat tile>
       <v-card-title class="primary">
-        <strong class="subheading">Inha Univ. Time Table Generator</strong>
+        <strong class="subheading">Inha Univ. Timetable Generator</strong>
         <v-spacer/>
         <a class="view-on-github" href="https://github.com/Astro36/inha-timetable-generator">
           View on <span class="github">GitHub</span>

@@ -8,7 +8,7 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'Inha Timetable',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -42,6 +42,53 @@ export default {
   ** Nuxt.js modules
   */
   modules: ['@nuxtjs/pwa'],
+
+  manifest: {
+    name: 'Inha Timetable',
+    short_name: 'Inha Timetable',
+    start_url: '/?utm_source=homescreen',
+    display: 'standalone',
+    background_color: '#005bac',
+    theme_color: '#005bac',
+    description: 'Inha Univ. Timetable Generator',
+    icons: [
+      {
+        src: 'static/touch/icon48.png',
+        sizes: '48x48',
+        type: 'image/png'
+      },
+      {
+        src: 'static/touch/icon72.png',
+        sizes: '72x72',
+        type: 'image/png'
+      },
+      {
+        src: 'static/touch/icon96.png',
+        sizes: '96x96',
+        type: 'image/png'
+      },
+      {
+        src: 'static/touch/icon144.png',
+        sizes: '144x144',
+        type: 'image/png'
+      },
+      {
+        src: 'static/touch/icon168.png',
+        sizes: '168x168',
+        type: 'image/png'
+      },
+      {
+        src: 'static/touch/icon192.png',
+        sizes: '192x192',
+        type: 'image/png'
+      },
+      {
+        src: 'static/touch/icon512.png',
+        sizes: '512x512',
+        type: 'image/png'
+      }
+    ],
+  },
 
   /*
   ** Build configuration

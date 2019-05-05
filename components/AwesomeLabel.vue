@@ -1,5 +1,5 @@
 <template>
-  <v-chip :color="color" label outline small>{{ content }}</v-chip>
+  <v-chip :color="color" disabled label outline small>{{ content }}</v-chip>
 </template>
 
 <script>

@@ -1,15 +1,20 @@
 <template>
-  <v-dialog v-model="isOpen" max-width="560px">
+  <v-dialog v-model="isOpen" max-width="560px" scrollable>
     <v-card>
-      <v-card-title>Select Your Department</v-card-title>
+      <v-card-title>Select your department</v-card-title>
       <v-card-text>
         <v-autocomplete
           v-model="selectedDepartment"
           :items="departmentNames"
-          label="Your Department"
+          label="Department"
           prepend-icon="account_balance"
           clearable
         />
+        <p>
+          If you select a department, you can check
+          <v-chip color="green" disabled label outline small>Required</v-chip>and
+          <v-chip color="red" disabled label outline small>Restricted</v-chip> courses.
+        </p>
       </v-card-text>
       <v-card-actions>
         <v-spacer/>
@@ -48,7 +53,7 @@ export default {
     updateResult() {
       const { selectedDepartment } = this
       if (selectedDepartment) {
-        this.$emit('result', { courses: [], department: selectedDepartment })
+        this.$emit('result', { department: selectedDepartment })
         this.close()
       } else {
       }

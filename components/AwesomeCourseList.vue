@@ -107,6 +107,7 @@
       <v-card>
         <v-card-title class="headline">
           Timetable Generator
+          <v-chip v-show="timetableError" color="error" disabled label text-color="white">No Result</v-chip>
           <v-spacer/>
           <v-btn color="primary" @click="calculateTimetable">Run</v-btn>
         </v-card-title>
@@ -201,6 +202,7 @@ export default {
         timetable: []
       },
       searchBoxVisible: false,
+      timetableError: false,
       ...dataTable
     }
   },
@@ -257,8 +259,13 @@ export default {
           return [candidate, schoolDays]
         })
         .sort((a, b) => a[1] - b[1])
-      console.log(candidates[0])
-      this.user.timetable = candidates.length > 0 ? candidates[0][0] : []
+      if (isFullArray(candidates)) {
+        this.user.timetable = candidates[0][0]
+        this.timetableError = false
+      } else {
+        this.user.timetable = []
+        this.timetableError = true
+      }
     },
     customSearchFilter(items, search, filter) {
       if (search) {
@@ -318,7 +325,7 @@ export default {
       this.search = search
     },
     updateUserData(user) {
-      this.user = user
+      this.user = Object.assign(this.user, user)
     }
   }
 }

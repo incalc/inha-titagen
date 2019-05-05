@@ -1,13 +1,10 @@
 <template>
   <v-card>
-    <v-card-title>
-      <span class="headline">Courses</span>
+    <v-card-title class="headline">
+      <span>Courses</span>
       <v-spacer/>
       <v-btn icon @click="openUserDialog">
         <v-icon>account_balance</v-icon>
-      </v-btn>
-      <v-btn icon @click="timetableVisible = !timetableVisible">
-        <v-icon>table_chart</v-icon>
       </v-btn>
       <v-btn icon @click="searchBoxVisible = !searchBoxVisible">
         <v-icon>search</v-icon>
@@ -15,9 +12,6 @@
     </v-card-title>
     <v-slide-y-transition>
       <awesome-search-box v-show="searchBoxVisible" @update="updateSearchData"/>
-    </v-slide-y-transition>
-    <v-slide-y-transition>
-      <awesome-timetable v-show="timetableVisible" class="ma-3" :courses="user.courses"/>
     </v-slide-y-transition>
     <v-divider/>
     <v-data-table
@@ -42,7 +36,7 @@
       </template>
       <template v-slot:expand="props">
         <v-data-table
-          v-model="user.courses"
+          v-model="user.courses[props.index]"
           class="grey lighten-3 pl-1"
           :headers="headersNested"
           :items="props.item.classes"
@@ -104,6 +98,45 @@
       </template>
     </v-data-table>
     <awesome-user-dialog ref="userDialog" @result="updateUserData"/>
+    <v-bottom-sheet inset>
+      <template v-slot:activator>
+        <v-btn color="primary" dark fab fixed bottom right>
+          <v-icon>table_chart</v-icon>
+        </v-btn>
+      </template>
+      <v-card>
+        <v-card-title class="headline">
+          Timetable Generator
+          <v-spacer/>
+          <v-btn color="primary" @click="calculateTimetable">Run</v-btn>
+        </v-card-title>
+        <v-divider/>
+        <v-layout row wrap py-2>
+          <v-flex sm6 xs12 py-2>
+            <awesome-timetable class="mx-3" :courses="user.timetable"/>
+          </v-flex>
+          <v-flex sm6 xs12 py-2>
+            <v-sheet class="custom mx-3" height="256">
+              <v-list two-line>
+                <v-list-tile v-for="course in user.courses.flat()" :key="course.id">
+                  <v-list-tile-action>
+                    <v-checkbox
+                      color="primary"
+                      readonly
+                      :value="user.timetable.find(({ id }) => course.id === id)"
+                    />
+                  </v-list-tile-action>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ course.id }}</v-list-tile-title>
+                    <v-list-tile-sub-title>{{ course.name }}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </v-sheet>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </v-bottom-sheet>
   </v-card>
 </template>
 
@@ -122,6 +155,33 @@ import {
 import { dataTable } from '@/static/components'
 import courses from '@/static/courses'
 
+const getSubgroups = (groups, subgroups = [], depth = -1, indexes = []) => {
+  if (depth === -1) {
+    depth = groups.length
+  }
+  if (depth > 0) {
+    for (
+      let i = 0, len = groups[groups.length - depth].length;
+      i < len;
+      i += 1
+    ) {
+      getSubgroups(groups, subgroups, depth - 1, [...indexes, i])
+    }
+  } else {
+    const candidate = []
+    for (let i = 0, len = groups.length; i < len; i += 1) {
+      candidate.push(groups[i][indexes[i]])
+    }
+    subgroups.push(candidate)
+  }
+  return subgroups
+}
+
+const isFullArray = array => array.length > 0
+
+const isUniqueArray = array =>
+  array.length === Array.from(new Set(array)).length
+
 export default {
   name: 'AwesomeCourseList',
   components: {
@@ -136,11 +196,11 @@ export default {
       courses,
       search: null,
       user: {
-        courses: [],
-        department: null
+        courses: new Array(courses.length).fill([]),
+        department: null,
+        timetable: []
       },
       searchBoxVisible: false,
-      timetableVisible: false,
       ...dataTable
     }
   },
@@ -162,10 +222,44 @@ export default {
       })
     })
   },
-  mounted() {
-    this.openUserDialog()
-  },
   methods: {
+    calculateTimetable() {
+      const selectedCourses = this.user.courses.filter(isFullArray)
+      const candidates = getSubgroups(selectedCourses)
+        .filter(candidate =>
+          isUniqueArray(
+            candidate
+              .map(course =>
+                course.time.split(',').filter(t => /^[월화수목금토]\d+/.test(t))
+              )
+              .flat()
+          )
+        )
+        .map(candidate => {
+          const dayNames = ['월', '화', '수', '목', '금', '토']
+          const coursesByDay = dayNames.map(dayName =>
+            candidate
+              .filter(course => course.time.includes(dayName))
+              .map(course => {
+                const ts = course.time
+                  .split(',')
+                  .filter(t => t.includes(dayName))
+                return {
+                  ...course,
+                  timeCaculated: {
+                    start: Number(ts[0].match(/\d+/)[0]),
+                    end: Number(ts[ts.length - 1].match(/\d+/)[0])
+                  }
+                }
+              })
+          )
+          const schoolDays = coursesByDay.filter(isFullArray).length
+          return [candidate, schoolDays]
+        })
+        .sort((a, b) => a[1] - b[1])
+      console.log(candidates[0])
+      this.user.timetable = candidates.length > 0 ? candidates[0][0] : []
+    },
     customSearchFilter(items, search, filter) {
       if (search) {
         return items.filter(item => {
@@ -237,6 +331,11 @@ tbody table thead tr {
 
 tbody table tr {
   background-color: #f8f8f8;
+}
+
+.custom.v-sheet {
+  border: #eee 1px solid;
+  overflow-y: auto;
 }
 
 .custom.v-input--checkbox .v-label {

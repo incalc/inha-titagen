@@ -21,6 +21,8 @@
           {{ course.professors[0] }}
           <br>
           {{ course.classroom }}
+          <br>
+          {{ course.time }}
         </p>
       </v-tooltip>
       <div class="day">{{ dayName }}</div>

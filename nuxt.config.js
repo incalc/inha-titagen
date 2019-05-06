@@ -2,7 +2,7 @@ import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
 import pkg from './package'
 
 export default {
-  mode: 'spa',
+  mode: 'universal',
 
   /*
   ** Headers of the page
@@ -15,7 +15,7 @@ export default {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: './favicon.ico' },
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
@@ -38,6 +38,10 @@ export default {
   */
   plugins: ['@/plugins/vuetify'],
 
+  router: {
+    base: '/inha-timetable-generator/'
+  },
+
   /*
   ** Nuxt.js modules
   */
@@ -53,37 +57,37 @@ export default {
     description: 'Inha Univ. Timetable Generator',
     icons: [
       {
-        src: '/touch/icon48.png',
+        src: './touch/icon48.png',
         sizes: '48x48',
         type: 'image/png'
       },
       {
-        src: '/touch/icon72.png',
+        src: './touch/icon72.png',
         sizes: '72x72',
         type: 'image/png'
       },
       {
-        src: '/touch/icon96.png',
+        src: './touch/icon96.png',
         sizes: '96x96',
         type: 'image/png'
       },
       {
-        src: '/touch/icon144.png',
+        src: './touch/icon144.png',
         sizes: '144x144',
         type: 'image/png'
       },
       {
-        src: '/touch/icon168.png',
+        src: './touch/icon168.png',
         sizes: '168x168',
         type: 'image/png'
       },
       {
-        src: '/touch/icon192.png',
+        src: './touch/icon192.png',
         sizes: '192x192',
         type: 'image/png'
       },
       {
-        src: '/touch/icon512.png',
+        src: './touch/icon512.png',
         sizes: '512x512',
         type: 'image/png'
       }

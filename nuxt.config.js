@@ -107,5 +107,9 @@ export default {
     */
     extend(config, ctx) {
     }
+  },
+
+  generate: {
+    dir: 'docs'
   }
 }

@@ -50,44 +50,44 @@ export default {
   manifest: {
     name: 'Inha Timetable',
     short_name: 'Inha Timetable',
-    start_url: '/?utm_source=homescreen',
+    start_url: './?utm_source=homescreen',
     display: 'standalone',
     background_color: '#005bac',
     theme_color: '#005bac',
     description: 'Inha Univ. Timetable Generator',
     icons: [
       {
-        src: './touch/icon48.png',
+        src: '../touch/icon48.png',
         sizes: '48x48',
         type: 'image/png'
       },
       {
-        src: './touch/icon72.png',
+        src: '../touch/icon72.png',
         sizes: '72x72',
         type: 'image/png'
       },
       {
-        src: './touch/icon96.png',
+        src: '../touch/icon96.png',
         sizes: '96x96',
         type: 'image/png'
       },
       {
-        src: './touch/icon144.png',
+        src: '../touch/icon144.png',
         sizes: '144x144',
         type: 'image/png'
       },
       {
-        src: './touch/icon168.png',
+        src: '../touch/icon168.png',
         sizes: '168x168',
         type: 'image/png'
       },
       {
-        src: './touch/icon192.png',
+        src: '../touch/icon192.png',
         sizes: '192x192',
         type: 'image/png'
       },
       {
-        src: './touch/icon512.png',
+        src: '../touch/icon512.png',
         sizes: '512x512',
         type: 'image/png'
       }

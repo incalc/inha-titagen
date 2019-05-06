@@ -1,6 +1,6 @@
 # Inha Timetable Generator
 
-<img src="./static/touch/icon512.png" style="display: block; margin: 0 auto; width: 50%;">
+<p align="center"><img src="./static/touch/icon512.png" width="256px" alt="Logo"></p>
 
 > Inha Univ. Timetable Generator
 

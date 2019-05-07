@@ -1,5 +1,5 @@
 {
-  "name": "inha-timetable-generator",
+  "name": "inha-titagen",
   "version": "1.0.0",
   "description": "Inha Univ. Timetable Generator",
   "keywords": [
@@ -32,13 +32,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Astro36/inha-timetable-generator.git"
+    "url": "git+https://github.com/Astro36/inha-titagen.git"
   },
   "author": "Seungjae Park <astro.psj@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Astro36/inha-timetable-generator/issues"
+    "url": "https://github.com/Astro36/inha-titagen/issues"
   },
-  "homepage": "https://github.com/Astro36/inha-timetable-generator#readme",
+  "homepage": "https://github.com/Astro36/inha-titagen#readme",
   "private": true
 }

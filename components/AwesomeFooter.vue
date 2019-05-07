@@ -4,7 +4,7 @@
       <v-card-title class="primary">
         <strong class="subheading">Inha Univ. Timetable Generator</strong>
         <v-spacer/>
-        <a class="view-on-github" href="https://github.com/Astro36/inha-timetable-generator">
+        <a class="view-on-github" href="https://github.com/Astro36/inha-titagen">
           View on <span class="github">GitHub</span>
         </a>
       </v-card-title>

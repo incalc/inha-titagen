@@ -8,7 +8,7 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: 'Inha Timetable',
+    title: 'Inha TitaGen',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -38,7 +38,7 @@ export default {
   plugins: ['@/plugins/vuetify'],
 
   router: {
-    base: '/inha-timetable-generator/'
+    base: '/inha-titagen/'
   },
 
   /*
@@ -47,47 +47,47 @@ export default {
   modules: ['@nuxtjs/pwa'],
 
   manifest: {
-    name: 'Inha Timetable',
-    short_name: 'Inha Timetable',
-    scope: '/inha-timetable-generator/',
-    start_url: '/inha-timetable-generator/?utm_source=homescreen',
+    name: 'Inha TitaGen',
+    short_name: 'Inha TitaGen',
+    scope: '/inha-titagen/',
+    start_url: '/inha-titagen/?utm_source=homescreen',
     display: 'standalone',
     background_color: '#005bac',
     theme_color: '#005bac',
     description: 'Inha Univ. Timetable Generator',
     icons: [
       {
-        src: '/inha-timetable-generator/touch/icon48.png',
+        src: '/inha-titagen/touch/icon48.png',
         sizes: '48x48',
         type: 'image/png'
       },
       {
-        src: '/inha-timetable-generator/touch/icon72.png',
+        src: '/inha-titagen/touch/icon72.png',
         sizes: '72x72',
         type: 'image/png'
       },
       {
-        src: '/inha-timetable-generator/touch/icon96.png',
+        src: '/inha-titagen/touch/icon96.png',
         sizes: '96x96',
         type: 'image/png'
       },
       {
-        src: '/inha-timetable-generator/touch/icon144.png',
+        src: '/inha-titagen/touch/icon144.png',
         sizes: '144x144',
         type: 'image/png'
       },
       {
-        src: '/inha-timetable-generator/touch/icon168.png',
+        src: '/inha-titagen/touch/icon168.png',
         sizes: '168x168',
         type: 'image/png'
       },
       {
-        src: '/inha-timetable-generator/touch/icon192.png',
+        src: '/inha-titagen/touch/icon192.png',
         sizes: '192x192',
         type: 'image/png'
       },
       {
-        src: '/inha-timetable-generator/touch/icon512.png',
+        src: '/inha-titagen/touch/icon512.png',
         sizes: '512x512',
         type: 'image/png'
       }

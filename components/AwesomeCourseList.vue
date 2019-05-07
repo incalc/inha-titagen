@@ -106,7 +106,7 @@
       </template>
       <v-card>
         <v-card-title class="headline">
-          Timetable Generator
+          Generator
           <v-chip v-show="timetableError" color="error" disabled label text-color="white">No Result</v-chip>
           <v-spacer/>
           <v-btn color="primary" @click="calculateTimetable">Run</v-btn>

@@ -20,6 +20,6 @@ export default {
 
 <style scoped>
 .card__course-table {
-  margin-top: -80px;
+  margin-top: -96px;
 }
 </style>

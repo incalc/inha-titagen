@@ -1,4 +1,4 @@
-# Inha Timetable Generator
+# Inha TitaGen
 
 <p align="center"><img src="./static/touch/icon512.png" width="256px" alt="Logo"></p>
 
@@ -10,9 +10,9 @@ See [CHANGELOG](./CHANGELOG.md)
 
 ## Demo
 
-![Demo Screenshot](./static/screenshot.png)
+![Demo Screenshot](./screenshot.png)
 
-See [Demo](https://astro36.github.io/inha-timetable-generator/)
+See [Demo](https://astro36.github.io/inha-titagen/)
 
 ## Features
 
@@ -25,7 +25,7 @@ See [Demo](https://astro36.github.io/inha-timetable-generator/)
 - Clone the repo:
 
 ```bash
-git clone https://github.com/Astro36/inha-timetable-generator.git
+git clone https://github.com/Astro36/inha-titagen.git
 ```
 
 ## Build Setup
@@ -71,4 +71,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-Inha Timetable Generator is licensed under the [MIT License](./LICENSE).
+Inha TitaGen is licensed under the [MIT License](./LICENSE).

@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'InhaTimetableLogo',
+  name: 'InhaTitagenLogo',
   props: {
     size: {
       type: String,

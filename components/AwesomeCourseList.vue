@@ -3,10 +3,10 @@
     <v-card-title class="headline">
       <span>Courses</span>
       <v-spacer/>
-      <v-btn icon @click="openUserDialog">
+      <v-btn aria-label="Open User Dialog" icon @click="openUserDialog">
         <v-icon>account_balance</v-icon>
       </v-btn>
-      <v-btn icon @click="searchBoxVisible = !searchBoxVisible">
+      <v-btn aria-label="Search Menu" icon @click="searchBoxVisible = !searchBoxVisible">
         <v-icon>search</v-icon>
       </v-btn>
     </v-card-title>
@@ -100,7 +100,7 @@
     <awesome-user-dialog ref="userDialog" @result="updateUserData"/>
     <v-bottom-sheet inset>
       <template v-slot:activator>
-        <v-btn color="primary" dark fab fixed bottom right>
+        <v-btn aria-label="Open Generator Menu" color="primary" dark fab fixed bottom right>
           <v-icon>table_chart</v-icon>
         </v-btn>
       </template>

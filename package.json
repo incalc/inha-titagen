@@ -8,7 +8,7 @@
     "generator"
   ],
   "dependencies": {
-    "@nuxtjs/pwa": "^3.0.0-beta.14",
+    "@nuxtjs/pwa": "^3.0.0-beta.16",
     "cross-env": "^5.2.0",
     "inha-info": "^0.2.0",
     "inha-timetable": "git+https://github.com/Agrajak/inha_timetable.git",
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^4.2.0",
-    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
     "nodemon": "^1.19.0",
     "prettier": "^1.17.0",
     "stylus": "^0.54.5",

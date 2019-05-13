@@ -1,6 +1,6 @@
 # Inha TitaGen
 
-<p align="center"><img src="./static/touch/icon512.png" width="256px" alt="Logo"></p>
+<p align="center"><img src="./static/icon.png" width="256px" alt="Logo"></p>
 
 > Inha Univ. Timetable Generator
 

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import colors from '@/static/colors'
+import colors from '@/data/colors'
 
 export default {
   name: 'AwesomeLabel',

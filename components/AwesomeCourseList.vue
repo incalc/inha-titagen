@@ -153,8 +153,8 @@ import {
   checkGrade,
   checkProfessor
 } from '@/lib/checker'
-import { dataTable } from '@/static/components'
-import courses from '@/static/courses'
+import { dataTable } from '@/data/components'
+import courses from '@/data/courses'
 
 const getSubgroups = (groups, subgroups = [], depth = -1, indexes = []) => {
   if (depth === -1) {

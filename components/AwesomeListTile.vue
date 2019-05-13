@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import icons from '@/static/icons'
+import icons from '@/data/icons'
 
 export default {
   name: 'AwesomeListTile',

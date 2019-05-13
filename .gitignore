@@ -82,7 +82,6 @@ dist
 
 # Service worker
 sw.*
-!docs/sw.js
 
 # Course Information
-static/courses.json
+data/courses.json

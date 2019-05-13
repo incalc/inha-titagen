@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import courses from '@/static/courses'
+import courses from '@/data/courses'
 
 export default {
   name: 'AwesomeSearchBox',

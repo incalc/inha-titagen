@@ -1,51 +1,26 @@
-import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 const NAME = 'Inha TitaGen'
 const DESCRIPTION = 'Inha Univ. Timetable Generator'
 const BASE_URL = '/inha-titagen/';
+const THEME_COLOR = '#005bac';
 
-export default {
-  mode: 'universal',
-
-  /*
-  ** Headers of the page
-  */
-  head: {
-    title: NAME,
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: DESCRIPTION }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: './favicon.ico' }
-    ]
-  },
-
-  /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
-
-  /*
-  ** Global CSS
-  */
+module.exports = {
   css: [
     '~/assets/style/app.styl',
     '~/assets/fonts.css'
   ],
 
-  /*
-  ** Plugins to load before mounting the App
-  */
+  loading: { color: THEME_COLOR },
+
   plugins: ['@/plugins/vuetify'],
 
-  router: { base: BASE_URL },
+  modules: [
+    '@nuxtjs/google-analytics',
+    '@nuxtjs/pwa'
+  ],
 
-  /*
-  ** Nuxt.js modules
-  */
-  modules: ['@nuxtjs/pwa'],
+  googleAnalytics: { id: 'UA-140031790-1' },
 
   manifest: {
     name: NAME,
@@ -53,32 +28,30 @@ export default {
     description: DESCRIPTION,
     scope: BASE_URL,
     display: 'standalone',
-    start_url: '/inha-titagen/?utm_source=homescreen',
-    theme_color: '#005bac',
-    background_color: '#005bac'
+    start_url: `${BASE_URL}?utm_source=homescreen`,
+    theme_color: THEME_COLOR,
+    background_color: THEME_COLOR
   },
 
-  /*
-  ** Build configuration
-  */
+  meta: {
+    name: NAME,
+    description: DESCRIPTION,
+    appleStatusBarStyle: 'black-translucent',
+    ogHost: `https://astro36.github.io${BASE_URL}`
+  },
+
+  mode: 'universal',
+
+  router: { base: BASE_URL },
+
   build: {
     extractCSS: true,
-    transpile: ['vuetify/lib'],
-    plugins: [new VuetifyLoaderPlugin()],
     loaders: {
       stylus: {
         import: ['~assets/style/variables.styl']
       }
     },
-
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-    }
-  },
-
-  generate: {
-    dir: 'docs'
+    plugins: [new VuetifyLoaderPlugin()],
+    transpile: ['vuetify/lib']
   }
 }

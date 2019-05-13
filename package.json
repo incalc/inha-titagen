@@ -8,6 +8,7 @@
     "generator"
   ],
   "dependencies": {
+    "@nuxtjs/google-analytics": "^2.2.0",
     "@nuxtjs/pwa": "^3.0.0-beta.16",
     "cross-env": "^5.2.0",
     "inha-info": "^0.2.0",
@@ -21,6 +22,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "nodemon": "^1.19.0",
     "prettier": "^1.17.0",
+    "push-dir": "^0.4.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2"
   },
@@ -28,7 +30,8 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "repository": {
     "type": "git",

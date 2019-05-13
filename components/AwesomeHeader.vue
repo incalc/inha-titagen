@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import InhaTitagenLogo from '@/components/InhaTitagenLogo'
+import InhaTitagenLogo from '@/components/logo/InhaTitagenLogo'
 
 export default {
   name: 'AwesomeHeader',

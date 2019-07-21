@@ -12,7 +12,7 @@ See [CHANGELOG](./CHANGELOG.md)
 
 ![Demo Screenshot](./screenshot.png)
 
-See [Demo](https://astro36.github.io/inha-titagen/)
+See [Demo](https://incalc.github.io/inha-titagen/)
 
 ## Features
 
@@ -25,7 +25,7 @@ See [Demo](https://astro36.github.io/inha-titagen/)
 - Clone the repo:
 
 ```bash
-git clone https://github.com/Astro36/inha-titagen.git
+git clone https://github.com/incalc/inha-titagen.git
 ```
 
 ## Build Setup

@@ -37,7 +37,7 @@ module.exports = {
     name: NAME,
     description: DESCRIPTION,
     appleStatusBarStyle: 'black-translucent',
-    ogHost: `https://astro36.github.io${BASE_URL}`,
+    ogHost: `https://incalc.github.io${BASE_URL}`,
     ogImage: 'social_preview.png'
   },
 

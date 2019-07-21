@@ -13,15 +13,15 @@
     "cross-env": "^5.2.0",
     "inha-info": "^0.2.0",
     "inha-timetable": "git+https://github.com/Agrajak/inha_timetable.git",
-    "nuxt": "^2.6.3",
-    "vuetify": "^1.5.14",
+    "nuxt": "^2.8.1",
+    "vuetify": "^1.5.16",
     "vuetify-loader": "^1.2.2"
   },
   "devDependencies": {
-    "eslint-config-prettier": "^4.2.0",
+    "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "nodemon": "^1.19.0",
-    "prettier": "^1.17.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2",
     "push-dir": "^0.4.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2"
@@ -35,13 +35,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Astro36/inha-titagen.git"
+    "url": "git+https://github.com/incalc/inha-titagen.git"
   },
   "author": "Seungjae Park <astro.psj@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Astro36/inha-titagen/issues"
+    "url": "https://github.com/incalc/inha-titagen/issues"
   },
-  "homepage": "https://github.com/Astro36/inha-titagen#readme",
+  "homepage": "https://github.com/incalc/inha-titagen#readme",
   "private": true
 }
